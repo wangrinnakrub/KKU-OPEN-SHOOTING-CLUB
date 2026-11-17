@@ -10,6 +10,13 @@ import ProfileButton from "./profile-button";
 type UserLite = { email: string | null };
 
 export function AuthButton() {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return <Button asChild variant="default" size="sm" className="!rounded-md !bg-red-900 !border-none !px-5 !text-white !text-[13px] !font-[500]"><Link href="/auth/login-condition">เข้าสู่ระบบ</Link></Button>;
+  }
+  return <ConnectedAuthButton />;
+}
+
+function ConnectedAuthButton() {
   const supabase = createClient();
   const [user, setUser] = useState<UserLite | null>(null);
   const [loading, setLoading] = useState(true);

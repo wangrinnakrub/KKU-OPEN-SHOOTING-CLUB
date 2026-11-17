@@ -11,8 +11,8 @@ import { motion } from 'framer-motion'
 
 const navLinks = [
   { href: '/', label: 'ประกาศ' },
-  // { href: '/content/complist', label: 'รายการแข่งขัน' },
-  // { href: '/content/myreg', label: 'ใบสมัครของฉัน' },
+  { href: '/content/complist', label: 'รายการแข่งขัน' },
+  { href: '/content/myreg', label: 'ใบสมัครของฉัน' },
   { href: '/content/compresult', label: 'ผลการแข่งขัน' },
   { href: '/content/contact', label: 'ติดต่อ' },
 ]
