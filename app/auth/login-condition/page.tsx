@@ -7,7 +7,6 @@ import Link from "next/link";
 
 
 export default function Page() {
-    const demoMode = process.env.NEXT_PUBLIC_DEMO_MODE !== 'false' || !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     return (
       <div className="min-h-screen w-full bg-white">
         <div className="mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center px-6 text-center">
@@ -28,7 +27,7 @@ export default function Page() {
           
 
           {/* Continue with Google */}
-            {<Link
+            <Link
             href="/auth/login"
             className="mb-10 inline-flex w-full max-w-sm items-center justify-center gap-3 rounded-xl border border-gray-300 px-5 py-3 text-gray-600 text-sm font-medium shadow-sm transition hover:shadow-[0_0_15px_3px_rgba(0,0,0,0.06)] md:text-base"
             >
@@ -41,7 +40,7 @@ export default function Page() {
                 draggable={false}
             />
             Continue with Google
-            </Link>}
+            </Link>
 
         </div>
       </div>
