@@ -11,14 +11,16 @@ import { motion } from 'framer-motion'
 
 const navLinks = [
   { href: '/', label: 'ประกาศ' },
-  // { href: '/content/complist', label: 'รายการแข่งขัน' },
-  // { href: '/content/myreg', label: 'ใบสมัครของฉัน' },
+  { href: '/content/complist', label: 'รายการแข่งขัน', requiresBackend: true },
+  { href: '/content/myreg', label: 'ใบสมัครของฉัน', requiresBackend: true },
   { href: '/content/compresult', label: 'ผลการแข่งขัน' },
   { href: '/content/contact', label: 'ติดต่อ' },
 ]
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [demoNotice, setDemoNotice] = useState(false)
+  const demoMode = !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   const pathname = usePathname()
 
   /* =========================
@@ -185,6 +187,13 @@ function Navbar() {
                   ref={el => {
                     linkRefs.current[link.href] = el
                   }}
+                  onClick={(event) => {
+                    if (demoMode && 'requiresBackend' in link && link.requiresBackend) {
+                      event.preventDefault()
+                      setDemoNotice(true)
+                      setLockedHref(null)
+                    }
+                  }}
                   onMouseDown={() => {
                     setLockedHref(link.href)
                     setHoverHref(null)
@@ -202,7 +211,7 @@ function Navbar() {
                     : "text-black/70 hover:text-red-700"
                   ].join(" ")}
                   >
-                  {link.label}
+                  {link.label}{demoMode && 'requiresBackend' in link && link.requiresBackend ? ' ·' : ''}
                   </Link>
               ))}
 
@@ -248,20 +257,27 @@ function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setMenuOpen(false)}
+                onClick={(event) => {
+                  setMenuOpen(false)
+                  if (demoMode && 'requiresBackend' in link && link.requiresBackend) {
+                    event.preventDefault()
+                    setDemoNotice(true)
+                  }
+                }}
                 className={
                   link.href === visualActiveHref
                     ? 'font-bold text-red-900 underline underline-offset-4'
                     : 'hover:text-red-700'
                 }
               >
-                {link.label}
+                {link.label}{demoMode && 'requiresBackend' in link && link.requiresBackend ? ' ·' : ''}
               </Link>
             ))}
             <AuthButton />
           </div>
         )}
       </nav>
+      {demoNotice && <div role="status" className="flex items-center justify-between gap-3 bg-amber-50 px-5 py-3 text-sm text-amber-900 border-b border-amber-200"><span>เมนูนี้ต้องใช้ Supabase ของโปรเจกต์เดิม จึงยังใช้งานไม่ได้ในโหมดสาธิต</span><button type="button" onClick={() => setDemoNotice(false)} className="underline">ปิด</button></div>}
     </>
   )
 }
