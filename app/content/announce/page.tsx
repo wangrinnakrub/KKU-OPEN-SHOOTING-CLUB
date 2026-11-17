@@ -16,13 +16,13 @@ export default function Announce() {
   const [selected, setSelected] = useState<(typeof announcements)[number] | null>(null);
   return (
     <div className="w-full bg-white">
-      <div className="flex justify-start items-start mx-8 mt-3 mb-1 text-black text-2xl">ประกาศ</div>
-      <p className="mx-5 mb-2 rounded-md bg-amber-50 border border-amber-300 p-2 text-sm text-black">ข้อมูลตัวอย่างสำหรับสาธิตเว็บไซต์ ไม่ใช่ประกาศจริงของชมรม</p>
-      <div className="bg-gray-200 mx-5 mt-2 rounded-md p-2">
+      <div className="flex justify-start items-start mx-8 mt-3 mb-1 text-[#4b211b] text-2xl font-semibold">ประกาศ</div>
+      <p className="mx-5 mb-2 rounded-md bg-[#fff8ed] border border-[#ead8d2] p-2 text-sm text-black">ข้อมูลตัวอย่างสำหรับสาธิตเว็บไซต์ ไม่ใช่ประกาศจริงของชมรม</p>
+      <div className="bg-[#f7f1ef] mx-5 mt-3 rounded-xl p-3 md:p-5 border border-[#ead8d2]">
         {announcements.map((item) => (
-          <div key={item.id} className="flex justify-between items-center md:text-xl text-sm text-black mx-2 border border-black bg-white my-3 px-2 py-3 rounded-md">
+          <div key={item.id} className="flex justify-between items-center md:text-xl text-sm text-black mx-2 border border-[#ead8d2] bg-white my-3 px-4 py-4 rounded-xl shadow-sm gap-4">
             <span>{item.title} ( {item.date} )</span>
-            <button onClick={() => setSelected(item)} className="flex md:text-sm text-xs border rounded mx-2 px-2 py-1 text-white bg-blue-400 hover:bg-blue-500">รายละเอียด</button>
+            <button onClick={() => setSelected(item)} className="flex md:text-sm text-xs rounded-lg px-4 py-2 text-white font-medium shrink-0 bg-[#8f3324] hover:bg-[#722719]">รายละเอียด</button>
           </div>
         ))}
       </div>
@@ -31,7 +31,7 @@ export default function Announce() {
           <div className="text-center text-lg font-medium mb-4">{selected.title}</div>
           <div className="text-sm text-gray-700 border rounded-md p-3 mb-4">{selected.detail}</div>
           <div className="text-center text-gray-500 text-sm mb-4">{selected.date}</div>
-          <button onClick={() => setSelected(null)} className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">ปิด</button>
+          <button onClick={() => setSelected(null)} className="w-full bg-[#8f3324] text-white py-2 rounded-lg hover:bg-[#722719]">ปิด</button>
         </div>
       </div>}
     </div>
