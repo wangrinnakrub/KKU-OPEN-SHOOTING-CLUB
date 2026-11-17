@@ -5,6 +5,9 @@ export async function middleware(request: NextRequest) {
   if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true' && request.nextUrl.pathname !== '/auth/login-condition') {
     return NextResponse.redirect(new URL('/auth/login-condition', request.url));
   }
+  if (request.nextUrl.pathname.startsWith('/auth/')) {
+    return NextResponse.next();
+  }
   const response = NextResponse.next();
 
   const supabase = createServerClient(
