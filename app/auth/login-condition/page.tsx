@@ -7,7 +7,7 @@ import Link from "next/link";
 
 
 export default function Page() {
-    const demoMode = !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const demoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true' || !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     return (
       <div className="min-h-screen w-full bg-white">
         <div className="mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center px-6 text-center">
