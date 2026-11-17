@@ -21,8 +21,8 @@ export default function Compresult() {
       <div className="bg-[#f7f1ef] mx-5 mt-3 rounded-xl p-3 md:p-5 border border-[#ead8d2]">
         {results.map((item) => (
           <div key={item.title} className="flex justify-between items-center md:text-xl text-sm text-black mx-2 border border-[#ead8d2] bg-white my-3 px-4 py-4 rounded-xl shadow-sm gap-4">
-            <span>{item.title}</span>
-            <button onClick={() => setSelected(item)} className="flex md:text-sm text-xs rounded-lg px-4 py-2 text-white font-medium shrink-0 bg-[#8f3324] hover:bg-[#722719]">ดูผลการแข่งขัน</button>
+            <span className="flex flex-wrap items-center gap-2"><span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">ตัวอย่าง</span><span>{item.title.replace("ตัวอย่าง: ", "")}</span></span>
+            <button onClick={() => setSelected(item)} className="flex md:text-sm text-xs rounded-lg px-4 py-2 text-white font-medium shrink-0 bg-green-400 hover:bg-green-500">ดูผลการแข่งขัน</button>
           </div>
         ))}
       </div>
@@ -30,7 +30,7 @@ export default function Compresult() {
         <div role="dialog" aria-modal="true" aria-label={selected.title} className="bg-white rounded-2xl w-[420px] max-w-[90vw] p-6 shadow-xl text-black" onClick={(event) => event.stopPropagation()}>
           <h2 className="text-center text-lg font-medium mb-4">{selected.title}</h2>
           <ol className="text-sm text-gray-700 border rounded-md p-3 mb-4">{selected.scores.map((score) => <li key={score}>{score}</li>)}</ol>
-          <button onClick={() => setSelected(null)} className="w-full bg-[#8f3324] text-white py-2 rounded-lg hover:bg-[#722719]">ปิด</button>
+          <button onClick={() => setSelected(null)} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">ปิด</button>
         </div>
       </div>}
     </div>
