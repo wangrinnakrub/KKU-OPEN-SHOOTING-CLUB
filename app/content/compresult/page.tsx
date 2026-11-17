@@ -30,7 +30,7 @@ export default function Compresult() {
         <div role="dialog" aria-modal="true" aria-label={selected.title} className="bg-white rounded-2xl w-[420px] max-w-[90vw] p-6 shadow-xl text-black" onClick={(event) => event.stopPropagation()}>
           <h2 className="text-center text-lg font-medium mb-4">{selected.title}</h2>
           <ol className="text-sm text-gray-700 border rounded-md p-3 mb-4">{selected.scores.map((score) => <li key={score}>{score}</li>)}</ol>
-          <button onClick={() => setSelected(null)} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">ปิด</button>
+          <button onClick={() => setSelected(null)} className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">ปิด</button>
         </div>
       </div>}
     </div>
