@@ -28,6 +28,10 @@ export function SignUpForm({
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (process.env.NEXT_PUBLIC_DEMO_MODE !== 'false') {
+      setError('โหมดสาธิต: ระบบสมัครสมาชิกยังใช้งานไม่ได้');
+      return;
+    }
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
