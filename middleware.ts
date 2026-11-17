@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
 export async function middleware(request: NextRequest) {
-  if (process.env.NEXT_PUBLIC_DEMO_MODE !== 'false' && request.nextUrl.pathname !== '/auth/login-condition') {
+  if (process.env.NEXT_PUBLIC_DEMO_MODE !== 'false' && !['/auth/login-condition', '/auth/login', '/auth/sign-up'].includes(request.nextUrl.pathname)) {
     return NextResponse.redirect(new URL('/auth/login-condition', request.url));
   }
   if (request.nextUrl.pathname.startsWith('/auth/')) {
