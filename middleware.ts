@@ -2,6 +2,12 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
 export async function middleware(request: NextRequest) {
+  if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true' && request.nextUrl.pathname !== '/auth/login-condition') {
+    return NextResponse.redirect(new URL('/auth/login-condition', request.url));
+  }
+  if (request.nextUrl.pathname.startsWith('/auth/')) {
+    return NextResponse.next();
+  }
   const response = NextResponse.next();
 
   const supabase = createServerClient(
@@ -53,5 +59,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/auth/:path*"],
 };
