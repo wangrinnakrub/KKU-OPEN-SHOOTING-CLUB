@@ -11,16 +11,14 @@ import { motion } from 'framer-motion'
 
 const navLinks = [
   { href: '/', label: 'ประกาศ' },
-  { href: '/content/complist', label: 'รายการแข่งขัน', requiresBackend: true },
-  { href: '/content/myreg', label: 'ใบสมัครของฉัน', requiresBackend: true },
+  { href: '/content/complist', label: 'รายการแข่งขัน' },
+  { href: '/content/myreg', label: 'ใบสมัครของฉัน' },
   { href: '/content/compresult', label: 'ผลการแข่งขัน' },
   { href: '/content/contact', label: 'ติดต่อ' },
 ]
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [demoNotice, setDemoNotice] = useState<'login' | 'backend' | null>(null)
-  const demoMode = !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   const pathname = usePathname()
 
   /* =========================
@@ -187,13 +185,6 @@ function Navbar() {
                   ref={el => {
                     linkRefs.current[link.href] = el
                   }}
-                  onClick={(event) => {
-                    if (demoMode && 'requiresBackend' in link && link.requiresBackend) {
-                      event.preventDefault()
-                      setDemoNotice(link.href === '/content/myreg' ? 'login' : 'backend')
-                      setLockedHref(null)
-                    }
-                  }}
                   onMouseDown={() => {
                     setLockedHref(link.href)
                     setHoverHref(null)
@@ -211,7 +202,7 @@ function Navbar() {
                     : "text-black/70 hover:text-red-700"
                   ].join(" ")}
                   >
-                  {link.label}{link.href === '/content/myreg' ? ' (ต้องเข้าสู่ระบบ)' : demoMode && 'requiresBackend' in link && link.requiresBackend ? ' (ข้อมูลไม่พร้อมใช้งาน)' : ''}
+                  {link.label}
                   </Link>
               ))}
 
@@ -257,27 +248,20 @@ function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={(event) => {
-                  setMenuOpen(false)
-                  if (demoMode && 'requiresBackend' in link && link.requiresBackend) {
-                    event.preventDefault()
-                    setDemoNotice(link.href === '/content/myreg' ? 'login' : 'backend')
-                  }
-                }}
+                onClick={() => setMenuOpen(false)}
                 className={
                   link.href === visualActiveHref
                     ? 'font-bold text-red-900 underline underline-offset-4'
                     : 'hover:text-red-700'
                 }
               >
-                {link.label}{link.href === '/content/myreg' ? ' (ต้องเข้าสู่ระบบ)' : demoMode && 'requiresBackend' in link && link.requiresBackend ? ' (ข้อมูลไม่พร้อมใช้งาน)' : ''}
+                {link.label}
               </Link>
             ))}
             <AuthButton />
           </div>
         )}
       </nav>
-      {demoNotice && <div role="status" className="flex items-center justify-between gap-3 bg-amber-50 px-5 py-3 text-sm text-amber-900 border-b border-amber-200"><span>{demoNotice === 'login' ? 'ใบสมัครของฉันต้องเข้าสู่ระบบก่อน ขณะนี้ระบบเข้าสู่ระบบใช้งานไม่ได้เพราะ Supabase ของโปรเจกต์เดิมหยุดให้บริการ' : 'รายการแข่งขันดึงข้อมูลจาก Supabase ของโปรเจกต์เดิม จึงยังไม่พร้อมใช้งานในโหมดสาธิต'}</span><button type="button" onClick={() => setDemoNotice(null)} className="underline">ปิด</button></div>}
     </>
   )
 }
