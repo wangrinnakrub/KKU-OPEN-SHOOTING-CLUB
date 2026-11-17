@@ -25,10 +25,10 @@ export default function Page() {
             <div className="h-px flex-1 bg-gray-300" />
           </div>
 
-          {demoMode && <p role="status" className="mb-4 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">โหมดสาธิต: ระบบเข้าสู่ระบบใช้งานไม่ได้ เนื่องจาก Supabase ของโปรเจกต์เดิมหยุดให้บริการ</p>}
+          
 
           {/* Continue with Google */}
-            {demoMode ? <button type="button" disabled aria-disabled="true" className="mb-10 inline-flex w-full max-w-sm items-center justify-center gap-3 rounded-xl border border-gray-300 px-5 py-3 text-gray-400 text-sm font-medium opacity-60 cursor-not-allowed md:text-base"><Image src={google_logo} alt="Google Logo" width={20} height={20} />Continue with Google</button> : <Link
+            {<Link
             href="/auth/login"
             className="mb-10 inline-flex w-full max-w-sm items-center justify-center gap-3 rounded-xl border border-gray-300 px-5 py-3 text-gray-600 text-sm font-medium shadow-sm transition hover:shadow-[0_0_15px_3px_rgba(0,0,0,0.06)] md:text-base"
             >
